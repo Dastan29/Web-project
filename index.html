@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundations Gallery</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: serif;
+            background: #ffffff;
+            color: #2b2b2b;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background: #d8d2d2;
+        }
+
+        .logo img {
+            height: 45px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-size: 1.1rem;
+        }
+
+        .search-box input {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #bbb;
+        }
+
+        /* Main project section */
+        .project-section {
+            margin: 20px auto;
+            width: 90%;
+            border: 2px solid #c9c9c9;
+            padding: 60px 40px;
+            text-align: center;
+            background: #efefef;
+        }
+
+        .project-section h1 {
+            color: #9a0000;
+            font-size: 2.2rem;
+        }
+
+        .project-section button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: white;
+            border: 1px solid #999;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        /* Community section */
+        .community {
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        .community h2 {
+            font-size: 2rem;
+        }
+
+        .community-box {
+            display: flex;
+            gap: 30px;
+            padding: 25px;
+            border: 2px solid #aaa;
+            border-radius: 15px;
+        }
+
+        .avatars img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 1px solid #333;
+        }
+
+        .join-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 1px solid #555;
+            background: white;
+            cursor: pointer;
+        }
+
+        /* Portfolio Cards */
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-top: 50px;
+        }
+
+        .portfolio-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .card {
+            width: 260px;
+            border-radius: 10px;
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .card .eye {
+            float: right;
+            margin-top: -25px;
+            margin-right: 5px;
+            cursor: pointer;
+        }
+
+        .add-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 20px;
+            width: 200px;
+            border: 1px solid #444;
+            border-radius: 20px;
+            background: #dadada;
+            cursor: pointer;
+        }
+
+        /* Employers Section */
+        .employer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .employer-box {
+            padding: 20px;
+            width: 200px;
+            background: #dadada;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .employer-box img {
+            width: 45px;
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            background: #d8d2d2;
+            padding: 25px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        footer span {
+            margin: 0 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/8/8d/Heriot-Watt_University_logo.png">
+    </div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Team</a>
+        <a href="#">Settings</a>
+        <a href="#">Profile</a>
+    </nav>
+
+    <div class="search-box">
+        <input type="text" placeholder="Search...">
+    </div>
+</header>
+
+<!-- MAIN PROJECT BLOCK -->
+<section class="project-section">
+    <h1>Project name</h1>
+    <p>Project description</p>
+    <button>Start your project</button>
+</section>
+
+<!-- COMMUNITY -->
+<section class="community">
+    <h2>Community</h2>
+
+    <div class="community-box">
+        <div class="avatars">
+            <img src="https://via.placeholder.com/45">
+            <img src="https://via.placeholder.com/45">
+            <img src="https://via.placeholder.com/45">
+            <img src="https://via.placeholder.com/45">
+        </div>
+
+        <div>
+            <h3>Create and participate</h3>
+            <p>Be part of our community and share your work to find opportunities.</p>
+        </div>
+    </div>
+
+    <button class="join-btn">Join your community</button>
+</section>
+
+<!-- CURRENT PORTFOLIOS -->
+<h2 class="section-title">Current portfolios</h2>
+
+<div class="portfolio-grid">
+    <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Van_Gogh_-_Self-Portrait_-_Google_Art_Project_%2825454%29.jpg">
+        <img class="eye" src="https://cdn-icons-png.flaticon.com/512/159/159604.png" width="22">
+        <p>User 1 — email.com<br>Short title</p>
+    </div>
+
+    <div class="card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mona_Lisa.jpg">
+        <img class="eye" src="https://cdn-icons-png.flaticon.com/512/159/159604.png" width="22">
+        <p>User 2 — email.com<br>Short title</p>
+    </div>
+
+    <div class="card">
+        <img src="https://i.imgur.com/9Wvh0qQ.jpeg">
+        <img class="eye" src="https://cdn-icons-png.flaticon.com/512/159/159604.png" width="22">
+        <p>User 3 — email.com<br>Short title</p>
+    </div>
+</div>
+
+<button class="add-btn">Add your portfolio</button>
+
+<!-- EMPLOYERS -->
+<div class="employer-grid">
+    <div class="employer-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
+        <p>Employer #1 comment</p>
+    </div>
+
+    <div class="employer-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
+        <p>Employer #2 comment</p>
+    </div>
+
+    <div class="employer-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png">
+        <p>Employer #3 comment</p>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <span>Cookies</span>
+    <span>Privacy rights</span>
+    <span>Contacts</span>
+    <span>Heriot-Watt University</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.banner {
+    background-color: #979393;
+    color: rgb(0, 0, 0);
+    padding: 1rem;
+}
+.footer {
+    background-color: #979393;
+    color: white;
+    padding: 1rem;
+    position: fixed;   /* fixes element to viewport */
+    bottom: 0;
+    width: 100%;
+}
+
+.menu {
+    margin-left: 80px;
+}
+
+.tmenu {
+    width: 100%;
+}
+
+.tmenu td {
+    padding: 10px;
+}
+
+.tmenu a {
+    color: rgb(12, 12, 12);
+    text-decoration: none;
+}
+
+.tmenu a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    padding: 20px;
+}
+
+#welcome {
+    font-size: 2.5em;
+    text-align: center;
+    margin-top: 50px;
+}
+.project-section {
+            margin: 20px auto;
+            width: 90%;
+            border: 2px solid #c9c9c9;
+            padding: 60px 40px;
+            text-align: center;
+            background: #efefef;
+        }
+
+        .project-section h1 {
+            color: #9a0000;
+            font-size: 2.2rem;
+        }
+
+        .project-section button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            background: white;
+            border: 1px solid #999;
+            border-radius: 20px;
+            cursor: pointer;
+        }
