@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArtPortfolio</title>
+  <link  href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">🎨 ArtPortfolio</div>
+    <input type="text" placeholder="Search portfolios, artists, designs..." class="search" />
+    <nav class="nav-links">
+      <a href="/">Explore</a>
+      <a href="/chat">Chat</a>
+      <a href="/profile">Profile</a>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required />
+      <button type="submit">Upload Work</button>
+    </form>
+    </nav>
+  </header>
