@@ -1,0 +1,24 @@
+<div class="work-item">
+    <a href="#" class="work-modal-trigger" data-work-id="<%= work.id %>">
+        <img src="<%= work.image_path %>" alt="Work">
+    </a>
+    
+    <div class="work-actions">
+        <button 
+            type="button"
+            class="like-button <%= work.isLiked ? 'liked' : '' %>" 
+            data-work-id="<%= work.id %>"
+            id="like-button-<%= work.id %>" 
+        >
+            Like
+        </button>
+        
+        <button 
+            type="button"
+            class="comment-modal-button" 
+            data-work-id="<%= work.id %>"
+        >
+            View Comments
+        </button>
+    </div>
+</div>

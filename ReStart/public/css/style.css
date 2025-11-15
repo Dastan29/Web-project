@@ -182,3 +182,136 @@ position: absolute;
   color: #c7b18b;
   font-size: 1.2rem;
 }
+
+
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+.popup-content {
+  background: white;
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 150px auto;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  animation: popup 0.2s ease-out;
+}
+
+#closeBtn {
+  float: right;
+  font-size: 22px;
+  cursor: pointer;
+}
+.like-button {
+    background-color: grey; /* Default unliked state */
+    color: black;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s;
+}
+
+.liked {
+    background-color: #dc3545; /* A standard red color */
+    color: white;
+    border-color: #dc3545;
+}
+/* Full-screen overlay */
+#work-detail-modal {
+    position: fixed;
+    z-index: 1000; /* Must be higher than everything else */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9); /* Dark background */
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content Container (The actual window) */
+#modal-content {
+    background-color: white;
+    margin: auto;
+    width: 90%; /* Adjust as needed */
+    height: 90%; /* Adjust as needed */
+    max-width: 1200px;
+    display: flex; /* Enables the two-column layout */
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Left side (Image) */
+.modal-left {
+    flex: 1; /* Takes up one part of the space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+}
+.modal-left img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Right side (Comments, Header, Footer) */
+.modal-right {
+    flex: 1; /* Takes up the second part of the space */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.modal-comments-list {
+    flex-grow: 1; /* Takes up all available vertical space */
+    overflow-y: auto; /* Scrollable comments */
+    padding: 10px 0;
+}
+
+.modal-footer {
+    padding-top: 10px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.modal-footer .comment-form {
+    display: flex;
+    flex-grow: 1;
+}
+
+.modal-footer input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.close-button {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-button:hover {
+    color: #777;
+}

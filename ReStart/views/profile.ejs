@@ -16,14 +16,12 @@
       <div class="project-grid">
         <% if (works && works.length > 0) { %>
           <% works.forEach(work => { %>
-            <div class="project-item">
-              <img src="<%= work.image_path %>" alt="User work">
-            </div>
-          <% }) %>
+    <%- include('WorkDisplay', { work: work, showDeleteButton: true }) %>
+<% }) %>
         <% } else { %>
           <p class="no-projects">You haven’t uploaded anything yet.</p>
         <% } %>
       </div>
     </section>
-
+<script src="/Interaction/likes.js"></script>
 <%- include('./footer') %>
