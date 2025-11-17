@@ -6,11 +6,11 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const database = require("./database");
 const multer = require("multer");
-// Initialize Multer
+
 const app = express();
 
 
-// Configure storage for uploaded images
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "public/projects/");
@@ -23,20 +23,18 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Middleware
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // Essential for parsing JSON comments
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
-// EJS
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 
-// -------------------------------------
-// AUTH MIDDLEWARE
-// -------------------------------------
+
 function requireAuth(req, res, next) {
     const token = req.cookies.token;
     if (!token) return res.redirect("/login");
@@ -49,9 +47,7 @@ function requireAuth(req, res, next) {
 }
 
 
-// -------------------------------------
-// PUBLIC ROUTES
-// -------------------------------------
+
 
 app.get("/", (req, res) => {
     res.render("index", { title: "Home", user: null });
@@ -66,9 +62,7 @@ app.get("/register", (req, res) => {
 });
 
 
-// -------------------------------------
-// LOGIN
-// -------------------------------------
+
 app.post("/login", (req, res) => {
     const { email, password } = req.body;
 
@@ -105,9 +99,7 @@ app.post("/login", (req, res) => {
 });
 
 
-// -------------------------------------
-// REGISTER
-// -------------------------------------
+
 app.post("/register", async (req, res) => {
     const { username, email, password } = req.body;
     const hash = await bcrypt.hash(password, 10);
@@ -126,9 +118,8 @@ app.post("/register", async (req, res) => {
 });
 
 
-// -------------------------------------
-// PROTECTED PROFILE PAGE
-// -------------------------------------
+
+
 app.get("/profile", requireAuth, (req, res) => {
     database.query(
         "SELECT id, username, email FROM users WHERE email = ?",
@@ -138,8 +129,6 @@ app.get("/profile", requireAuth, (req, res) => {
 
             const user = result[0];
 
-            // Get all uploaded works for this user, including their like status.
-            // Using a subquery to check if the current user has liked the work.
             const worksQuery = `
                 SELECT 
                     w.id, 
@@ -152,23 +141,23 @@ app.get("/profile", requireAuth, (req, res) => {
 
             database.query(
                 worksQuery,
-                [req.user.id, user.id], // Current user ID for subquery, and profile user ID for WHERE
+                [req.user.id, user.id], 
                 (err, works) => {
                     if (err) {
                         console.log("WORKS QUERY ERROR:", err);
                         works = [];
                     }
-                    // Transform the results: isLiked is 1 or 0, convert to boolean
+                    
                     const processedWorks = works.map(work => ({
                         id: work.id,
                         image_path: work.image_path,
-                        isLiked: work.is_liked > 0 // Now a boolean
+                        isLiked: work.is_liked > 0 
                     }));
                     
                     res.render("profile", {
                         title: "Profile",
                         user,
-                        works: processedWorks // Use the processed works list
+                        works: processedWorks 
                     });
                 }
             );
@@ -177,14 +166,12 @@ app.get("/profile", requireAuth, (req, res) => {
 });
 
 
-//-------------------------------------
-// AJAX API: FETCH WORK AND COMMENTS (NEW ROUTE)
-//-------------------------------------
+
 app.get("/api/work-details/:id", requireAuth, (req, res) => {
     const workId = req.params.id;
     const currentUserId = req.user.id;
     
-    // 1. Query the work details and if the current user liked it, and the poster's username
+   
     const workQuery = `
         SELECT 
             w.id, 
@@ -195,7 +182,7 @@ app.get("/api/work-details/:id", requireAuth, (req, res) => {
         JOIN users u ON w.user_id = u.id
         WHERE w.id = ?`;
 
-    // 2. Query all comments for the work, joining to get the username
+    
     const commentsQuery = `
         SELECT 
             c.content, 
@@ -232,24 +219,22 @@ app.get("/api/work-details/:id", requireAuth, (req, res) => {
 });
 
 
-//-------------------------------------
-// COMMENTS - POST
-//-------------------------------------
+
 app.post("/comment/:workId", requireAuth, (req, res) => {
     const workId = req.params.workId;
     const userId = req.user.id;
-    const content = req.body.content; // Expecting content from global express.json()
+    const content = req.body.content; 
 
     if (!content || content.trim() === "") {
         return res.status(400).json({ success: false, message: "Comment content is required." });
     }
     
-    // Find the current user's username to return in the JSON response
+    
     database.query(
         "SELECT username FROM users WHERE id = ?",
         [userId],
         (userErr, userResults) => {
-            const username = userResults[0].username || req.user.email; // Fallback to email
+            const username = userResults[0].username || req.user.email; 
 
             database.query(
                 "INSERT INTO comments (work_id, user_id, content) VALUES (?, ?, ?)",
@@ -260,13 +245,13 @@ app.post("/comment/:workId", requireAuth, (req, res) => {
                         return res.status(500).json({ success: false, message: "Failed to save comment." });
                     }
 
-                    // Return the data needed to instantly display the new comment
+                    
                     return res.json({ 
                         success: true, 
                         message: "Comment added.",
                         comment: { 
                             content: content,
-                            username: username // Now returning the actual username
+                            username: username 
                         }
                     });
                 }
@@ -276,33 +261,27 @@ app.post("/comment/:workId", requireAuth, (req, res) => {
 });
 
 
-// -------------------------------------
-// LOGOUT
-// -------------------------------------
+
 app.get("/logout", (req, res) => {
     res.clearCookie("token");
     res.redirect("/");
 });
 
-// ... (omitted previous server.js code for brevity)
 
-//-------------------------------------
-// Post (UPDATED WITH DEBUG LOGGING)
-//-------------------------------------
 app.post("/upload", requireAuth, upload.single("image"), (req, res) => {
     if (!req.file) return res.status(400).send("No file uploaded.");
 
     const imagePath = `/projects/${req.file.filename}`;
     const { title, description } = req.body;
 
-    // --- DEBUG LOGGING ---
+    
     console.log("--- UPLOAD DEBUG ---");
     console.log("Received Title:", title);
     console.log("Received Description:", description);
     console.log("--------------------");
-    // ---------------------
+    
 
-    // Find user ID by email
+    
     database.query(
         "SELECT id FROM users WHERE email = ?",
         [req.user.email],
@@ -311,7 +290,7 @@ app.post("/upload", requireAuth, upload.single("image"), (req, res) => {
 
             const userId = result[0].id;
 
-            // Save uploaded work into the 'works' table
+            
             database.query(
                 "INSERT INTO works (user_id, image_path, title, description) VALUES (?, ?, ?, ?)",
                 [userId, imagePath, title, description],
@@ -327,22 +306,19 @@ app.post("/upload", requireAuth, upload.single("image"), (req, res) => {
     );
 });
 
-// ... (omitted rest of server.js code)
-//-------------------------------------
-//Likes - UPDATED TO RESPOND WITH JSON
-//-------------------------------------
+
 app.post("/like/:id", requireAuth, (req, res) => {
     const workId = req.params.id;
     const userId = req.user.id;
     let action = 'liked';
 
-    // Try insert (LIKE)
+    
     database.query(
         "INSERT INTO likes (work_id, user_id) VALUES (?, ?)",
         [workId, userId],
         (err) => {
             if (err) {
-                // Already liked → remove like (UNLIKE)
+                
                 database.query(
                     "DELETE FROM likes WHERE work_id = ? AND user_id = ?",
                     [workId, userId],
@@ -352,13 +328,13 @@ app.post("/like/:id", requireAuth, (req, res) => {
                             return res.status(500).json({ success: false, message: 'Toggle failed' });
                         }
                         action = 'unliked';
-                        // SUCCESS response for UNLIKE
+                        
                         return res.json({ success: true, action: action, workId: workId });
                     }
                 );
                 return;
             }
-            // SUCCESS response for LIKE
+            
             return res.json({ success: true, action: action, workId: workId });
         }
     );
@@ -366,16 +342,12 @@ app.post("/like/:id", requireAuth, (req, res) => {
 
 
 
-//-------------------------------------
-// DELETE WORK
-//-------------------------------------
+
 app.delete("/work/:id", requireAuth, (req, res) => {
     const workId = req.params.id;
     const userId = req.user.id;
 
-    // First, verify the user owns the work
-    // We delete from works, and use the work_id and user_id in the WHERE clause
-    // to ensure only the owner can delete the work.
+    
     const deleteQuery = "DELETE FROM works WHERE id = ? AND user_id = ?";
 
     database.query(deleteQuery, [workId, userId], (err, result) => {
@@ -385,23 +357,21 @@ app.delete("/work/:id", requireAuth, (req, res) => {
         }
 
         if (result.affectedRows === 0) {
-            // This means the work didn't exist OR the user didn't own it
+            
             return res.status(403).json({ success: false, message: "Work not found or unauthorized." });
         }
 
-        // Deletion successful
+        
         return res.json({ success: true, message: "Work deleted successfully.", workId: workId });
     });
 });
 
-// -------------------------------------
-// 404
-// -------------------------------------
+
 app.use((req, res) => {
     res.status(404).render("index", { title: "404 - Not Found" });
 });
 
 
-// Start server
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
