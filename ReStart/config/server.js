@@ -566,20 +566,33 @@ app.delete("/delete/work/:id", requireAuth, (req, res) => {
 // -------------------------------------
 // GET CATALOG PAGE (WITH TAG FILTERING)
 // -------------------------------------
-app.get("/catalog", requireAuth, (req, res) => {
-    // Get the tag filter from the query parameter
-    const filterTag = req.query.tag ? req.query.tag.toLowerCase() : null;
-    const currentUserId = req.user.id; // Used for checking if the user liked a work
+// server.js (Updated app.get("/catalog") route)
 
-    // 1. Fetch all existing tags for the filter bar (assuming getAllTags is available)
+// -------------------------------------
+// GET CATALOG PAGE (WITH MULTI-TAG FILTERING)
+// -------------------------------------
+app.get("/catalog", requireAuth, (req, res) => {
+    // 1. Get the tag filter from the query parameter
+    // Split the comma-separated string into an array, and filter out any empty strings
+    let filterTags = [];
+    if (req.query.tag) {
+        // Lowercase and split the tag string.
+        filterTags = req.query.tag.toLowerCase().split(',').filter(tag => tag.length > 0);
+    }
+    
+    // The currently active tag (or the first one for display purposes if needed)
+    const activeTag = filterTags.length > 0 ? filterTags[0] : null;
+
+    const currentUserId = req.user.id; 
+
+    // 2. Fetch all existing tags for the filter bar
     getAllTags((err, allTags) => {
         if (err) {
             console.error("Error fetching all tags:", err);
-            // Fallback to an empty array if tags fail
             allTags = []; 
         }
 
-        // 2. Build the SQL query for works
+        // 3. Build the SQL query for works
         let worksQuery = `
             SELECT 
                 w.id,                                   
@@ -602,36 +615,42 @@ app.get("/catalog", requireAuth, (req, res) => {
         
         let queryParams = [currentUserId];
 
-        // Add filtering logic if a tag is selected
-        if (filterTag) {
+        // Add filtering logic if multiple tags are selected
+        if (filterTags.length > 0) {
+            // Create a comma-separated string of '?' placeholders for the IN clause
+            const placeholders = filterTags.map(() => '?').join(',');
+            
+            // The query must select works that have *all* selected tags.
+            // This is done by checking if the work's ID appears in work_tags 
+            // the same number of times as the number of filter tags (count(DISTINCT tag_id) = ?)
             worksQuery += `
                 WHERE w.id IN (
                     SELECT work_id FROM work_tags 
                     JOIN tags ON work_tags.tag_id = tags.id 
-                    WHERE tags.tagName = ?
+                    WHERE tags.tagName IN (${placeholders})
+                    GROUP BY work_id
+                    HAVING COUNT(DISTINCT tags.id) = ? 
                 )
             `;
-            // Add the filter tag to parameters
-            queryParams.push(filterTag);
+            // Add all filter tags and the count to parameters
+            queryParams.push(...filterTags, filterTags.length);
         }
         
         worksQuery += `
             GROUP BY 
-                w.id, w.image_path, w.title, w.description, u.username
+                w.id, w.image_path, w.title, w.description, u.username, w.uploaded_at
             ORDER BY 
                 w.uploaded_at  DESC
         `;
         
-        // 3. Execute the works query
+        // 4. Execute the works query
         database.query(worksQuery, queryParams, (err, works) => {
             if (err) {
                 console.error("Error fetching works for catalog:", err);
-                // Render with a generic error message or handle appropriately
                 return res.status(500).render("index", { 
                     title: "Catalog Error", 
                     works: [],
-                    // Pass necessary variables to render index template
-                    tags: allTags, // <--- CHANGED FROM allTags TO tags
+                    tags: allTags, 
                     user: req.user
                 });
             }
@@ -642,12 +661,15 @@ app.get("/catalog", requireAuth, (req, res) => {
                 tags: work.tags ? work.tags.split(',') : [] 
             }));
 
-            // 4. Render the new catalog view
+            // 5. Render the new catalog view
             res.render("catalog", {
                 title: "Work Catalog",
                 works: processedWorks,
-                allTags: allTags, // All tags for the filter bar
-                activeTag: filterTag, // The currently selected tag
+                allTags: allTags, 
+                // We are passing filterTags as a comma-separated string to activeTag
+                // so the EJS can correctly identify which tags are active, or a single tag name for existing EJS logic.
+                // The current EJS only expects a single activeTag name for highlighting the first button.
+                activeTag: activeTag, // Active tag will still only highlight the first tag button in the EJS
                 user: req.user
             });
         });
