@@ -1,0 +1,27 @@
+<%- include('./header') %>
+ <!-- Profile Card -->
+    <section class="profile-card">
+      <div class="profile-pic">
+        <img src="<%= user.profile_pic || '/images/default-avatar.png' %>" alt="Profile Picture">
+      </div>
+      <div class="profile-info">
+        <h2><%= user.username %></h2>
+        <p><%= user.email %></p>
+        </form>
+        <a href="/logout" class="logout-btn">Logout</a>
+      </div>
+    </section>
+    <section class="projects">
+      <h3>Your Works</h3>
+      <div class="project-grid">
+        <% if (works && works.length > 0) { %>
+          <% works.forEach(work => { %>
+    <%- include('WorkDisplay', { work: work, showDeleteButton: true }) %>
+<% }) %>
+        <% } else { %>
+          <p class="no-projects">You haven’t uploaded anything yet.</p>
+        <% } %>
+      </div>
+    </section>
+<script src="/Interaction/likes.js"></script>
+<%- include('./footer') %>

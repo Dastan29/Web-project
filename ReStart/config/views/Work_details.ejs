@@ -1,0 +1,47 @@
+<%- include('./header') %>
+
+<section class="work-detail-container">
+    <div class="work-image">
+        <img src="<%= work.image_path %>" alt="Work by <%= work.username %>">
+    </div>
+
+    <div class="work-info">
+        <h3><%= work.title %></h3>  <p><%= work.description %></p> <div class="work-tags">
+            <% if (work.tags && work.tags.length > 0) { %>
+                <% work.tags.forEach(tag => { %>
+                    <span class="tag-label"><%= tag.charAt(0).toUpperCase() + tag.slice(1) %></span>
+                <% }) %>
+            <% } %>
+        
+
+        <h3>Posted by: <%= work.username %></h3>
+        </div>
+        <button 
+            type="button"
+            class="like-button <%= work.isLiked ? 'liked' : '' %>" 
+      
+       [cite_start]data-work-id="<%= work.id %>" [cite: 2]
+            id="like-button-<%= work.id %>" 
+        >
+            Like
+        </button>
+
+        <div class="comments-display">
+            <h4>Comments</h4>
+            <div id="comments-list-<%= work.id %>">
+             
+    [cite_start]<% comments.forEach(comment => { %> [cite: 3]
+                    <p><strong><%= comment.username %>:</strong> <%= comment.content %></p>
+                <% }) %>
+            </div>
+
+            <form class="comment-form" data-work-id="<%= work.id %>">
+                <input type="text" name="content" placeholder="Add a comment..." 
+ [cite_start]required> [cite: 4]
+                <button type="submit">Post</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<%- include('./footer') %>

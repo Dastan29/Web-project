@@ -1,0 +1,27 @@
+<%- include('./header') %>
+<section class="hero">
+<div class="hero-text">
+  <h1>A Captivating Platform for Creative Minds</h1>
+<p>Share your artistic journey with a community of passionate creators. Connect, collaborate, and grow together in a space designed for emerging artists and designers.</p>
+<a href="#" class="btn">Learn More</a>
+</div>
+<div class="hero-image">
+ <div class="image-placeholder">🖼</div>
+</div>
+</section>
+
+<section class="featured">
+<h2>Featured Works</h2>
+
+    <div class="gallery"> 
+        <% if (works && works.length > 0) { %>
+            <% works.forEach(work => { %>
+                <%- include('WorkDisplay', { work: work, showDeleteButton: false,}) %>
+            <% }) %>
+        <% } else { %>
+            <p>No featured works available.</p>
+        <% } %>
+</div>
+</section>
+  
+<%- include('./footer') %>

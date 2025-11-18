@@ -1,0 +1,39 @@
+<%- include('./header', { user: user, tags: allTags }) %>
+
+<main class="catalog-page">
+    <h2>Work Catalog</h2>
+
+    <div class="tag-filter-bar">
+        <a 
+            href="/catalog" 
+            class="tag-filter-btn <%= activeTag === null ? 'active' : '' %>"
+        >
+            All Works
+        </a>
+        
+        <% allTags.forEach(tag => { %>
+            <a 
+                href="/catalog?tag=<%= tag %>" 
+                class="tag-filter-btn <%= activeTag === tag ? 'active' : '' %>"
+            >
+                <%= tag.charAt(0).toUpperCase() + tag.slice(1) %>
+            </a>
+        <% }) %>
+    </div>
+    
+    <% if (works.length > 0) { %>
+        <div class="works-grid">
+            <% works.forEach(work => { %>
+                <%- include('WorkDisplay', { work: work, showDeleteButton: false }) %>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p class="no-results">
+            No works found 
+            <%= activeTag ? `for the tag "${activeTag.charAt(0).toUpperCase() + activeTag.slice(1)}"` : '' %>.
+        </p>
+    <% } %>
+
+</main>
+
+<%- include('footer') %>

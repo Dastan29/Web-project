@@ -1,0 +1,54 @@
+<div class="work-item">
+    <a href="#" class="work-modal-trigger" data-work-id="<%= work.id %>">
+        <img src="<%= work.image_path %>" alt="Work">
+    </a>
+    <div class="work-info">
+        <h3><%= work.title %></h3> 
+        <p><%= work.description %></p>
+        
+        <a href="/profile/<%=work.username%>">Autor:<%=work.username%></a>
+
+        <div class="work-tags">
+            <% if (work.tags && work.tags.length > 0) { %>
+                <% work.tags.forEach(tag => { %>
+                    <span class="tag-label"><%= tag.charAt(0).toUpperCase() + tag.slice(1) %></span>
+                <% }) %>
+            <% } else { %>
+                <span class="tag-label">No Tags</span>
+            <% } %>
+        </div>
+    </div>
+    <div class="work-actions">
+        <button 
+            type="button"
+            class="like-button <%= work.isLiked ? 'liked' : '' %>" 
+           
+[cite: 2]  data-work-id="<%= work.id %>"
+            id="like-button-<%= work.id %>" 
+        >
+            Like
+        </button>
+        
+        <button 
+            type="button"
+            class="comment-modal-button" 
+            
+[cite: 3] data-work-id="<%= work.id %>"
+        >
+            View Comments
+        </button>
+
+
+        <% if (typeof showDeleteButton !== 'undefined' && showDeleteButton) { %>
+            <button 
+                type="button"
+                class="delete-work-button" 
+      
+[cite: 4]           data-work-id="<%= work.id %>"
+                action ="/delete/work/<%= work.id %>"
+            >
+                Delete
+            </button>
+        <% } %>
+    </div>
+</div>

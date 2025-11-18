@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArtPortfolio</title>
+  <link  href="/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+
+  <div id="work-detail-modal" style="display: none;">
+        <div id="modal-content">
+            </div>
+    </div>
+    
+    <header class="main-header">
+        </header>
+    
+    <script src="/Interaction/interaction.js"></script>
+
+  <header class="navbar">
+    <div class="logo">ArtPortfolio</div>
+    
+  <form action="/catalog" method="GET" class="search-form">
+
+        <% if (typeof activeTag !== 'undefined' && activeTag) { %>
+            <input type="hidden" name="tag" value="<%= activeTag %>" />
+        <% } %>
+    </form>
+  <nav class="nav-links">
+      <a href="/">Explore</a>
+      <a href="/catalog">Catalog</a>
+      <a href="/profile">Profile</a>
+    <button id="openBtn" class="upload-btn" action="/upload">Upload Work</button>
+  </nav>
+</header>
+
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span id="closeBtn">&times;</span>
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required />
+      <input type="text" name="title" placeholder="Title" required />
+      <input type="text" name="description" placeholder="Description" required />
+      <label>tags</label>
+
+<% if (typeof tags !== 'undefined' && tags.length > 0) { %>
+    <% tags.forEach(tag => { %>
+        <% if (tag && typeof tag === 'string') { %>  <div>
+                <input type="checkbox" id="tag-<%= tag %>" name="tags" value="<%= tag %>" style="margin-right: 5px;">
+                <label for="tag-<%= tag %>" style="color: #e5e0d8;"><%= tag.charAt(0).toUpperCase() + tag.slice(1) %></label>
+            </div>
+        <% } %>                                      <% }) %> 
+<% } %>
+  
+      <button type="submit" class="upload-btn">Submit</button>
+    </form>
+  </div>
+</div>
+<script>
+  const popup = document.getElementById("popup");
+  const openBtn = document.getElementById("openBtn");
+  const closeBtn = document.getElementById("closeBtn");
+
+  openBtn.onclick = () => popup.style.display = "block";
+  closeBtn.onclick = () => popup.style.display = "none";
+
+  window.onclick = (e) => {
+    if (e.target === popup) popup.style.display = "none";
+  };
+</script>
+
+    </nav>
+  </header>
