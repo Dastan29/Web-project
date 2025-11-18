@@ -4,6 +4,7 @@
     <h2>Work Catalog</h2>
 
     <div class="tag-filter-bar">
+        
         <a 
             href="/catalog" 
             class="tag-filter-btn <%= activeTag === null ? 'active' : '' %>"
@@ -11,15 +12,25 @@
             All Works
         </a>
         
-        <% allTags.forEach(tag => { %>
-            <a 
-                href="/catalog?tag=<%= tag %>" 
-                class="tag-filter-btn <%= activeTag === tag ? 'active' : '' %>"
-            >
-                <%= tag.charAt(0).toUpperCase() + tag.slice(1) %>
-            </a>
-        <% }) %>
-    </div>
+        <form id="tag-filter-form" onsubmit="handleTagFilter(event)">
+            <% allTags.forEach(tag => { %>
+                <label 
+                    class="tag-filter-label"
+                >
+                    <input 
+                        type="checkbox" 
+                        name="tag" 
+                        value="<%= tag %>"
+                        >
+                    <span class="tag-filter-btn">
+                        <%= tag.charAt(0).toUpperCase() + tag.slice(1) %>
+                    </span>
+                </label>
+            <% }) %>
+            
+            <button type="submit" class="tag-filter-btn submit-btn">Filter</button>
+        </form>
+        </div>
     
     <% if (works.length > 0) { %>
         <div class="works-grid">
@@ -30,10 +41,55 @@
     <% } else { %>
         <p class="no-results">
             No works found 
-            <%= activeTag ? `for the tag "${activeTag.charAt(0).toUpperCase() + activeTag.slice(1)}"` : '' %>.
+            <%= activeTag ?
+                `for the tag "${activeTag.charAt(0).toUpperCase() + activeTag.slice(1)}"` : '' %>.
         </p>
     <% } %>
 
 </main>
 
+<script>
+    function handleTagFilter(event) {
+        event.preventDefault(); // Stop the default form submission
+
+        // Get all checked tag checkboxes
+        const checkboxes = document.querySelectorAll('#tag-filter-form input[name="tag"]:checked');
+        
+        // Map the checked boxes to an array of their values (tag names)
+        const selectedTags = Array.from(checkboxes).map(checkbox => checkbox.value);
+        
+        let newUrl = '/catalog';
+
+        if (selectedTags.length > 0) {
+            // Join the tags with commas to form the query string value
+            const tagString = selectedTags.join(',');
+            
+            // Encode the string and append it to the URL
+            newUrl += `?tag=${encodeURIComponent(tagString)}`;
+        }
+        
+        // Navigate to the new URL
+        window.location.href = newUrl;
+    }
+
+    // --- Optional: Code to pre-check checkboxes based on current URL ---
+    document.addEventListener('DOMContentLoaded', () => {
+        // Get the current URL search parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentTagParam = urlParams.get('tag');
+
+        if (currentTagParam) {
+            // Split the comma-separated tag string back into an array
+            const activeTags = currentTagParam.split(',');
+            
+            // Find and check the relevant checkboxes
+            activeTags.forEach(tag => {
+                const checkbox = document.querySelector(`#tag-filter-form input[value="${tag}"]`);
+                if (checkbox) {
+                    checkbox.checked = true;
+                }
+            });
+        }
+    });
+</script>
 <%- include('footer') %>

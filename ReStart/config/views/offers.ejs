@@ -1,0 +1,118 @@
+<%- include('./header', { user: user }) %> 
+
+<main class="offers-page">
+    <div class="offers-header"> 
+        <h2>Job Offers for Artists</h2>
+        <% if (user) { %>
+            <button id="openOfferModalBtn" class="upload-btn">
+                + Post a Job Offer
+            </button>
+        <% } %>
+    </div>
+    <p class="intro-text">Find new opportunities submitted by clients and companies.</p>
+
+    <% if (offers && offers.length > 0) { %>
+        <div class="offers-list">
+            <% offers.forEach(offer => { %>
+                <div class="offer-card">
+                    <h3><%= offer.title %></h3>
+                    <div class="offer-meta">
+                        <span class="company-name">
+                            <i class="fas fa-building"></i> <%= offer.company_name %>
+                        </span>
+                        <% if (offer.salary_range) { %>
+                            <span class="salary">
+                                <i class="fas fa-dollar-sign"></i> <%= offer.salary_range %>
+                            </span>
+                        <% } %>
+                        <span class="date">
+                            <i class="fas fa-clock"></i> Posted: <%= new Date(offer.date_posted).toLocaleDateString() %>
+                        </span>
+                    </div>
+                    
+                    <p class="offer-description"><%= offer.description.substring(0, 200) %>...</p>
+                    
+                    <details class="offer-details">
+                        <summary>View Full Details & Contact</summary>
+                        <p class="full-description"><%= offer.description %></p>
+                        <p>
+                            <strong>Contact:</strong> 
+                            <a href="mailto:<%= offer.contact_email %>"><%= offer.contact_email %></a>
+                        </p>
+                    </details>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <p class="no-results">No job offers are currently available. Check back soon!</p>
+    <% } %>
+
+    <div id="offerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Post a New Job Offer</h2>
+            <p>Please provide details about the job opportunity for our artists.</p>
+            
+            <form action="/add-offer" method="POST" class="add-offer-form">
+                
+                <div class="form-group">
+                    <label for="title">Job Title</label>
+                    <input type="text" id="title" name="title" required maxlength="255">
+                </div>
+                
+                <div class="form-group">
+                    <label for="company_name">Company / Client Name</label>
+                    <input type="text" id="company_name" name="company_name" required maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Job Description (Requirements, scope, and timeline)</label>
+                    <textarea id="description" name="description" rows="8" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="salary_range">Salary / Pay Range (Optional)</label>
+                    <input type="text" id="salary_range" name="salary_range" maxlength="50">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact_email">Contact Email (for artist applications)</label>
+                    <input type="email" id="contact_email" name="contact_email" required maxlength="100">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Submit Job Offer</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('offerModal');
+            const openBtn = document.getElementById('openOfferModalBtn');
+            const closeBtn = modal.querySelector('.close-btn');
+
+            // Open Modal
+            if (openBtn) {
+                openBtn.onclick = function() {
+                    modal.style.display = 'block';
+                }
+            }
+
+            // Close Modal via 'x' button
+            if (closeBtn) {
+                closeBtn.onclick = function() {
+                    modal.style.display = 'none';
+                }
+            }
+
+            // Close Modal when clicking outside the content box
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = 'none';
+                }
+            }
+        });
+    </script>
+</main>
+
+<%- include('./footer') %>
