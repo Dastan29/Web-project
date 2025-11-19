@@ -20,7 +20,18 @@ const storage = multer.diskStorage({
         cb(null, uniqueName + path.extname(file.originalname));
     }
 });
+const profileStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        // Save profile pictures to a separate public/avatars folder
+        cb(null, "public/profile_pics/");
+    },
+    filename: (req, file, cb) => {
+        const uniqueName = Date.now() + "-profile-" + Math.round(Math.random() * 1E9);
+        cb(null, uniqueName + path.extname(file.originalname));
+    }
+});
 
+const profileUpload = multer({ storage: profileStorage });
 const upload = multer({ storage: storage });
 
 // Middleware
@@ -201,7 +212,7 @@ app.post("/register", async (req, res) => {
 // -------------------------------------
 app.get("/profile", requireAuth, (req, res) => {
     database.query(
-        "SELECT id, username, email FROM users WHERE email = ?",
+        "SELECT id, username, email, profile_pic, bio FROM users WHERE email = ?",
         [req.user.email],
         (err, result) => {
             if (err || result.length === 0) return res.redirect("/login");
@@ -262,6 +273,61 @@ app.get("/profile", requireAuth, (req, res) => {
 });
 });
 
+
+
+// server.js (New POST route for profile updates)
+
+// Use the existing 'upload' middleware configured for image uploads.
+// NOTE: You might want a separate multer config for smaller profile pics, 
+// but for simplicity, the current one is reused here.
+//-------------------------------------
+// PROFILE UPDATE (HANDLES IMAGE AND BIO)
+//-------------------------------------
+app.post("/profile/update", requireAuth, profileUpload.single("profile_pic"), (req, res) => {
+    const userId = req.user.id;
+    const bio = req.body.bio;
+    let imagePath = null;
+
+    // 1. Determine the image path
+    if (req.file) {
+        // Path is relative to the public directory: /avatars/filename.ext
+        imagePath = `/profile-pics/${req.file.filename}`;
+    }
+
+    // 2. Build the SQL update query dynamically
+    let query = "UPDATE users SET ";
+    let updates = [];
+    let params = [];
+
+    if (imagePath) {
+        updates.push("profile_pic = ?");
+        params.push(imagePath);
+    }
+    
+    // Check if bio was submitted
+    if (bio !== undefined) {
+        updates.push("bio = ?");
+        params.push(bio);
+    }
+
+    // If nothing was provided, redirect without query execution
+    if (updates.length === 0) {
+        return res.redirect("/profile");
+    }
+
+    query += updates.join(", ") + " WHERE id = ?";
+    params.push(userId);
+
+    // 3. Execute the update query
+    database.query(query, params, (err, result) => {
+        if (err) {
+            console.error("PROFILE UPDATE ERROR:", err);
+            // In a real app, handle file deletion on error
+            return res.status(500).send("Failed to update profile.");
+        }
+        res.redirect("/profile");
+    });
+});
 //-------------------------------------
 // AJAX API: FETCH WORK AND COMMENTS (NEW ROUTE)
 //-------------------------------------
@@ -683,7 +749,7 @@ app.get("/profile/:username", requireAuth, (req, res) =>
 
     // 2. Update the query to search by username
     database.query(
-        "SELECT id, username, email FROM users WHERE username = ?",
+        "SELECT id, username, email, bio FROM users WHERE username = ?",
         [targetUsername], // Use the targetUsername here
         (err, result) => {
             if (err || result.length === 0) {

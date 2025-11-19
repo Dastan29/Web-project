@@ -1,12 +1,13 @@
 <%- include('./header') %>
  <!-- Profile Card -->
     <section class="profile-card">
-      <div class="profile-pic">
-        <img src="<%= user.profile_pic || '/images/default-avatar.png' %>" alt="Profile Picture">
-      </div>
       <div class="profile-info">
         <h2><%= user.username %></h2>
         <p><%= user.email %></p>
+        <div class="form-group">
+        <label for="bio_text">About Me</label>
+        <text id="bio_text" name="bio" rows="4"><%= user.bio || '' %></text>
+      </div>
         </form>
         <a href="/logout" class="logout-btn">Logout</a>
       </div>

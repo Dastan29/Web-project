@@ -1,14 +1,31 @@
 <%- include('./header') %>
  <!-- Profile Card -->
     <section class="profile-card">
-      <div class="profile-pic">
-        <img src="<%= user.profile_pic || '/images/default-avatar.png' %>" alt="Profile Picture">
+  <div class="profile-info">
+    <h2><%= user.username %></h2>
+    <p><%= user.email %></p>
+    
+    <form action="/profile/update" method="POST" enctype="multipart/form-data" class="profile-update-form">
+      <h3>Update Profile</h3>
+      
+      <div class="form-group">
+        <label for="profile_pic_upload">New Profile Picture</label>
+        <input type="file" id="profile_pic_upload" name="profile_pic" accept="image/*">
       </div>
-      <div class="profile-info">
-        <h2><%= user.username %></h2>
-        <p><%= user.email %></p>
-        </form>
-        <a href="/logout" class="logout-btn">Logout</a>
+      
+      <div class="form-group">
+        <label for="bio_text">About Me</label>
+        <textarea id="bio_text" name="bio" rows="4"><%= user.bio || '' %></textarea>
+      </div>
+      
+      <button type="submit" class="update-btn">Save Changes</button>
+    </form>
+    
+    <a href="/logout" class="logout-btn">Logout</a>
+  </div>
+  
+</section>
+</div>
       </div>
     </section>
     <section class="projects">
