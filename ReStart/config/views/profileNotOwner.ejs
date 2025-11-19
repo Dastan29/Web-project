@@ -9,11 +9,10 @@
         <text id="bio_text" name="bio" rows="4"><%= user.bio || '' %></text>
       </div>
         </form>
-        <a href="/logout" class="logout-btn">Logout</a>
       </div>
     </section>
     <section class="projects">
-      <h3>Your Works</h3>
+      <h3>Works</h3>
       <div class="project-grid">
         <% if (works && works.length > 0) { %>
           <% works.forEach(work => { %>

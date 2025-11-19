@@ -22,7 +22,7 @@
                         </span>
                         <% if (offer.salary_range) { %>
                             <span class="salary">
-                                <i class="fas fa-dollar-sign"></i> <%= offer.salary_range %>
+                                <i class="fas fa-dollar-sign"></i> <h5>Salary: <%= offer.salary_range %></h5>
                             </span>
                         <% } %>
                         <span class="date">
@@ -30,7 +30,7 @@
                         </span>
                     </div>
                     
-                    <p class="offer-description"><%= offer.description.substring(0, 200) %>...</p>
+                    <p class="offer-description"><%= offer.description.substring(0,50) %>...</p>
                     
                     <details class="offer-details">
                         <summary>View Full Details & Contact</summary>

@@ -3,10 +3,11 @@
         <img src="<%= work.image_path %>" alt="Work">
     </a>
     <div class="work-info">
-        <h3><%= work.title %></h3> 
-        <p><%= work.description %></p>
+        
         
         <h5><a href="/profile/<%=work.username%>">Autor:<%=work.username%></a></h5>
+        <h3><%= work.title %></h3> 
+        <p><%= work.description %></p>
 
         <div class="work-tags">
             <% if (work.tags && work.tags.length > 0) { %>

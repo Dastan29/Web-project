@@ -228,205 +228,41 @@ position: absolute;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.9); /* Dark background */
-    display: none; /* Initially hidden */
+    display: flex; /* Initially hidden */
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 /* Modal Content Container (The actual window) */
-#modal-content {
-    background-color: white;
-    margin: auto;
-    width: 90%; /* Adjust as needed */
-    height: 90%; /* Adjust as needed */
-    max-width: 1200px;
-    display: flex; /* Enables the two-column layout */
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-/* Left side (Image) */
-.modal-left {
-    flex: 1; /* Takes up one part of the space */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
-}
-.modal-left img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-/* Right side (Comments, Header, Footer) */
-.modal-right {
-    flex: 1; /* Takes up the second part of the space */
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-}
-
-.modal-comments-list {
-    flex-grow: 1; /* Takes up all available vertical space */
-    overflow-y: auto; /* Scrollable comments */
-    padding: 10px 0;
-}
-
-.modal-footer {
-    padding-top: 10px;
-    border-top: 1px solid #ccc;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.modal-footer .comment-form {
-    display: flex;
-    flex-grow: 1;
-}
-
-.modal-footer input[type="text"] {
-    flex-grow: 1;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.close-button {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.close-button:hover {
-    color: #777;
-}
-
-
-
-/* --- New styles for WorkDisplay integration --- */
-
-/* 1. Style the container for each work item */
-.work-item {
-    background: #1a1816; /* Same background as .card */
-    border-radius: 8px;
-    overflow: hidden;
-    /* Optional: Ensure a consistent aspect ratio if needed, but flex/grid often handle this */
-}
-
-/* 2. Style the image wrapper/link */
-.work-item a {
-    display: block; /* Make the link a block element */
-    height: 180px;  /* Define a fixed height for a uniform look */
-    background: #2a2724; /* Placeholder background */
-    overflow: hidden;
-}
-
-/* 3. Style the image itself */
-.work-item img {
-    width: 100%;
-    height: 100%;
-    /* Key for making images "look normally" and fill the container: */
-    object-fit: cover; 
-}
-
-/* 4. Style the info and action sections to match .card-info padding */
-.work-info, .work-actions {
-    padding: 10px 15px; /* Adjust padding */
-    color: #c3b7a8; /* Match secondary text color */
-}
-
-/* 5. Clean up the action button group layout */
-.work-actions {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-/* 6. Style the buttons to look consistent */
-.work-actions button {
-    padding: 6px 10px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    border: none;
-    color: #1a1816;
-}
-
-/* Specific button styles (using existing colors) */
-.work-actions .like-button {
-    background-color: #c7b18b; /* Use a default color for better visibility */
-    color: #1a1816;
-}
-.work-actions .comment-modal-button,
-.work-actions .delete-work-button {
-    background-color: #2b2825;
-    color: #e5e0d8;
-}
-
-
-/* ------------------------------------- */
-/* 1. Modal Container and Overlay */
-/* ------------------------------------- */
-#work-detail-modal {
-    position: fixed;
-    z-index: 1000; /* High z-index to ensure it's on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(18, 16, 14, 0.9); /* #12100e with transparency */
-    display: flex; /* Centers the content */
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-/* ------------------------------------- */
-/* 2. Modal Content (The Card itself) */
-/* ------------------------------------- */
 #modal-content {
     background: #1a1816; /* Match navbar/card background */
     border-radius: 12px;
     width: 90%;
     max-width: 1100px; /* Limit size on large screens */
     max-height: 90vh;
-    display: flex; /* Use flex for image (left) and info (right) layout */
+    display: flex; /* Enables the two-column layout */
     overflow: hidden; /* Contains the image and ensures rounded corners */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     color: #e5e0d8;
 }
 
-/* ------------------------------------- */
-/* 3. Image Section (Left) */
-/* ------------------------------------- */
+/* Left side (Image) */
 .modal-left {
     flex: 2; /* Takes up 2 parts of the space */
     min-width: 40%;
     max-height: 90vh;
     overflow: hidden;
 }
-
 .modal-left img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensures the entire image is visible, unlike 'cover' */
+    object-fit: contain; /* Ensures the entire image is visible */
 }
 
-/* ------------------------------------- */
-/* 4. Info & Comment Section (Right) */
-/* ------------------------------------- */
+/* Right side (Comments, Header, Footer) */
 .modal-right {
-    flex: 1.5; /* Takes up 1.5 parts of the space */
+    flex: 1; /* Takes up 1 part of the space */
     padding: 25px 30px;
     display: flex;
     flex-direction: column;
@@ -454,20 +290,14 @@ position: absolute;
     line-height: 1.5;
 }
 
-/* ------------------------------------- */
-/* 5. Tags and Comments */
-/* ------------------------------------- */
-
-/* Re-use the existing .work-tags for consistent tag grouping */
-.work-tags { 
+/* Tags in Modal */
+.work-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 20px;
 }
-
-/* Re-use the existing .tag-label style for tags inside the modal */
-.work-tags .tag-label { 
+.work-tags .tag-label {
     background: #2a2724; /* Darker background for tag pill */
     color: #c7b18b; /* Accent color text */
     padding: 4px 10px;
@@ -476,89 +306,224 @@ position: absolute;
     font-weight: 500;
 }
 
+/* Comments List in Modal */
 .modal-comments-list {
-    flex-grow: 1; /* Allows comments section to take up available space */
+    flex-grow: 1; /* Takes up all available vertical space */
     margin-top: 15px;
-    padding-right: 10px; /* Space for scrollbar */
+    padding-right: 10px;
+    overflow-y: auto; /* Scrollable comments */
 }
 
 .modal-comments-list p {
-    margin: 5px 0;
-    padding: 5px 0;
-    border-bottom: 1px solid #2a2724; /* Subtle divider */
-}
-
-.modal-comments-list strong {
+    background: #12100e;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 6px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    border-left: 3px solid #c7b18b;
     color: #e5e0d8;
 }
+.modal-comments-list p strong {
+    color: #c7b18b;
+    font-weight: 700;
+    margin-right: 5px;
+}
 
-
-/* ------------------------------------- */
-/* 6. Footer, Buttons, and Close Button */
-/* ------------------------------------- */
-
+/* Comment Form in Modal */
 .modal-footer {
     padding-top: 15px;
+    margin-top: 15px;
     border-top: 1px solid #2a2724;
     display: flex;
     gap: 10px;
     align-items: center;
 }
-
-.modal-comment-form {
+.modal-footer .comment-form {
     display: flex;
     flex-grow: 1;
-    gap: 5px;
+    gap: 10px;
 }
-
-.modal-comment-form input[type="text"] {
+.modal-footer input[type="text"] {
     flex-grow: 1;
-    padding: 8px;
-    border-radius: 4px;
+    padding: 10px;
     border: 1px solid #3e3a36;
+    border-radius: 6px;
     background: #2a2724;
     color: #e5e0d8;
 }
 
-.close-button {
-    font-size: 1.8rem;
+.modal-footer button {
+    background: #c7b18b;
+    color: #1a1816;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
     cursor: pointer;
-    color: #c3b7a8;
+    font-weight: 600;
+    transition: background-color 0.2s;
 }
 
+.modal-footer button:hover {
+    background-color: #d8c39e;
+}
+
+.close-button {
+    color: #e5e0d8;
+    font-size: 30px;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
 .close-button:hover {
     color: #c7b18b;
 }
 
-/* ------------------------------------- */
-/* Media Query for smaller screens */
-/* ------------------------------------- */
-@media (max-width: 850px) {
-    #modal-content {
-        flex-direction: column;
-        width: 95%;
-        max-width: 600px;
-    }
+/* --- WorkDisplay Component Styles (used on index.ejs, catalog.ejs, profile.ejs) --- */
 
-    .modal-left {
-        max-height: 40vh; /* Adjust image size on small screen */
-        min-width: 100%;
-    }
+.work-item {
+    background: #1a1816;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.work-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.work-item a {
+    display: block;
+    height: 200px;
+    background: #2a2724;
+    overflow: hidden;
+}
+
+.work-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.work-info {
+    padding: 15px;
+    color: #c3b7a8;
+}
+
+.work-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: #e5e0d8;
+    margin: 0 0 5px 0;
+}
+
+.work-info p {
+    font-size: 0.9rem;
+    color: #9a8e7c;
+    margin: 0 0 10px 0;
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.work-info h5 {
+    /* KEY FIX: Remove all default margins from the h5 block element */
+    margin: 0; 
+    padding: 0; 
+    margin-bottom: 10px; /* Add a small margin back for spacing below the link */
+}
+
+/* Author Link (a) Styles */
+.work-info h5 a {
+    font-size: 0.95rem; 
+    font-weight: 500;
+    color: #c7b18b; 
+    text-decoration: none;
+    /* KEY FIX: Set to inline to only occupy the width of the text, eliminating the wide square background */
+    display: inline; 
+}
+
+.work-info h5 a:hover {
+    text-decoration: underline;
+}
+
+.work-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 0 15px 15px 15px;
+}
+
+.work-actions .like-button,
+.work-actions .comment-modal-button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    color: #1a1816;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.work-actions .like-button {
+    background-color: #c7b18b;
+}
+
+.work-actions .like-button:hover {
+    background-color: #d8c39e;
+}
+
+.work-actions .comment-modal-button {
+    background-color: #2b2825;
+    color: #e5e0d8;
+}
+.work-actions .comment-modal-button:hover {
+    background-color: #3e3a36;
+}
+
+.work-actions .stat-count {
+    font-size: 0.9rem;
+    color: #9a8e7c;
+    margin-right: 15px;
+}
+
+.work-actions .delete-work-button {
+    margin-left: auto;
+    background-color: #4a3c2a;
+    color: #e5e0d8;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.work-actions .delete-work-button:hover {
+    background-color: #635038;
+}
+
+.work-actions .like-button.liked {
+    background-color: #a36f1c;
+    color: #f0f0f0;
 }
 
 
-/* style.css additions for the Catalog Page */
-
+/* --- Styles for Catalog Page (catalog.ejs) --- */
 .catalog-page {
+    padding: 40px 80px;
     max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
+    margin: 0 auto;
 }
 
 .catalog-page h2 {
-    color: #c7b18b;
-    border-bottom: 2px solid #2a2724;
-    padding-bottom: 10px;
+    font-family: 'Playfair Display', serif;
+    color: #e5e0d8;
     margin-bottom: 20px;
 }
 
@@ -570,31 +535,69 @@ position: absolute;
     padding: 10px;
     background: #1a1816;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.tag-filter-btn {
+.tag-filter-bar .tag-filter-btn {
     text-decoration: none;
     color: #e5e0d8;
     background: #2a2724;
-    
+    padding: 8px 15px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-block;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border: none;
 }
 
-.tag-filter-btn:hover {
+.tag-filter-bar .tag-filter-btn:hover {
     background: #3e3a36;
     color: #c7b18b;
-    
 }
 
-.tag-filter-btn.active {
-    background: #c7b18b; /* Accent color for the active filter */
+.tag-filter-bar .tag-filter-btn.active {
+    background: #c7b18b;
     color: #1a1816;
     font-weight: 700;
 }
 
+.tag-filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag-filter-label {
+    display: block;
+    cursor: pointer;
+}
+
+.tag-filter-label input[type="checkbox"] {
+    display: none;
+}
+
+.tag-filter-label input[type="checkbox"] + .tag-filter-btn {
+    transition: all 0.2s;
+}
+
+.tag-filter-label input[type="checkbox"]:checked + .tag-filter-btn {
+    background: #a36f1c;
+    color: #f0f0f0;
+    font-weight: 600;
+}
+
+.tag-filter-form .submit-btn {
+    background: #2b2825;
+    color: #e5e0d8;
+    font-weight: 600;
+}
+
+.tag-filter-form .submit-btn:hover {
+    background: #3e3a36;
+}
+
 .works-grid {
     display: grid;
-    /* Responsive grid: minimum size 280px */
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 20px;
 }
@@ -606,52 +609,813 @@ position: absolute;
     color: #c3b7a8;
 }
 
-/* Modal structure */
+/* --- Styles for Login/Register Pages (login.ejs, register.ejs) --- */
+.card {
+    background: #1a1816;
+    padding: 30px 40px;
+    max-width: 400px;
+    margin: 80px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.card h2 {
+    font-family: 'Playfair Display', serif;
+    color: #c7b18b;
+    margin-bottom: 25px;
+}
+
+.card form input[type="email"],
+.card form input[type="password"],
+.card form input[type="text"],
+.card form input[type="username"] {
+    width: 90%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #3e3a36;
+    border-radius: 6px;
+    background: #2a2724;
+    color: #e5e0d8;
+    box-sizing: border-box;
+}
+
+.card button[type="submit"] {
+    background: #c7b18b;
+    color: #1a1816;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.card button[type="submit"]:hover {
+    background: #d8c39e;
+}
+
+.card p {
+    margin-top: 20px;
+}
+
+.card a {
+    color: #c7b18b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* --- Styles for Profile Page (profile.ejs, profileNotOwner.ejs) --- */
+.profile-card {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #1a1816;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.profile-info {
+    text-align: center;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #2a2724;
+    margin-bottom: 30px;
+}
+
+.profile-info h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #e5e0d8;
+    margin-bottom: 5px;
+}
+
+.profile-info p {
+    color: #c3b7a8;
+    margin-bottom: 25px;
+}
+
+.profile-update-form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 20px;
+    background: #12100e;
+    border-radius: 8px;
+}
+
+.profile-update-form h3 {
+    color: #c7b18b;
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #2a2724;
+    padding-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #e5e0d8;
+}
+
+.profile-update-form input[type="text"],
+.profile-update-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3e3a36;
+    border-radius: 6px;
+    background: #2a2724;
+    color: #e5e0d8;
+    box-sizing: border-box;
+}
+
+.profile-update-form textarea {
+    resize: vertical;
+}
+
+.update-btn {
+    background: #c7b18b;
+    color: #1a1816;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.update-btn:hover {
+    background: #d8c39e;
+}
+
+.logout-btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 8px 15px;
+    background: #2b2825;
+    color: #e5e0d8;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+    background: #3e3a36;
+}
+
+.projects {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 30px;
+}
+
+.projects h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: #c7b18b;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #2a2724;
+    padding-bottom: 5px;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.no-projects {
+    text-align: center;
+    padding: 20px;
+    color: #c3b7a8;
+}
+
+/* --- Styles for Offers Page (offers.ejs) --- */
+.offers-page {
+    padding: 40px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.offers-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.offers-header h2 {
+    font-family: 'Playfair Display', serif;
+    color: #e5e0d8;
+    margin: 0;
+}
+
+.intro-text {
+    color: #c3b7a8;
+    margin-bottom: 30px;
+    font-size: 1.05rem;
+}
+
+.offers-list {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+.offer-card {
+    background: #1a1816;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    border-left: 5px solid #c7b18b;
+}
+
+.offer-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #c7b18b;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.company-name {
+    color: #e5e0d8;
+    font-weight: 600;
+}
+.company-name i {
+    font-size: 0.9rem;
+}
+
+.offer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 6px;
+    font-size: 0.9rem;
+    color: #9a8e7c;
+}
+
+.offer-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.offer-meta i {
+    font-size: 0.9rem;
+}
+
+.salary {
+    color: #e5e0d8;
+    font-weight: 600;
+}
+
+.date {
+    opacity: 0.9;
+}
+
+.offer-description {
+    margin-top: 10px;
+    color: #c3b7a8;
+    line-height: 1.5;
+    font-size: 0.96rem;
+}
+
+.offer-details {
+    margin-top: 10px;
+    background: #12100e;
+    border-radius: 8px;
+    border: 1px solid #2a2724;
+    padding: 10px 15px;
+}
+
+.offer-details summary {
+    cursor: pointer;
+    color: #c7b18b;
+    font-weight: 600;
+    list-style: none;
+}
+
+.offer-details summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 5px;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+}
+
+.offer-details[open] summary::before {
+    content: "▼";
+}
+
+.offer-details .full-description {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #2a2724;
+    color: #e5e0d8;
+    line-height: 1.6;
+}
+
+.offer-details p {
+    margin: 10px 0;
+}
+
+.offer-details strong {
+    color: #c7b18b;
+}
+
+.offer-details a {
+    color: #c7b18b;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* Offer Modal */
+#offerModal .modal-content {
+    background: #1a1816;
+    max-width: 600px;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    color: #e5e0d8;
+}
+
+#offerModal h2 {
+    font-family: 'Playfair Display', serif;
+    color: #c7b18b;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#offerModal .close-btn {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+    color: #e5e0d8;
+}
+#offerModal .close-btn:hover {
+    color: #c7b18b;
+}
+
+.add-offer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-offer-form .form-group {
+    text-align: left;
+}
+
+.add-offer-form input[type="text"],
+.add-offer-form input[type="email"],
+.add-offer-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3e3a36;
+    border-radius: 6px;
+    background: #2a2724;
+    color: #e5e0d8;
+    box-sizing: border-box;
+}
+
+.add-offer-form textarea {
+    resize: vertical;
+}
+
+.add-offer-form .btn-primary {
+    background: #c7b18b;
+    color: #1a1816;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+.add-offer-form .btn-primary:hover {
+    background-color: #d8c39e;
+}
+
+
+/* --- Full Work Detail Page (If not using a modal) --- */
+.work-detail-page {
+    padding: 40px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 30px;
+}
+
+.work-detail-image-container {
+    flex: 2;
+    min-width: 600px;
+    background: black;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 80vh;
+}
+
+.work-detail-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.work-detail-container {
+    flex: 1;
+    min-width: 320px;
+    background: #1a1816;
+    border-radius: 12px;
+    padding: 22px 24px;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Header and Description in Detail Page */
+.work-detail-container .work-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    margin: 0 0 6px 0;
+    color: #e5e0d8;
+}
+
+.work-detail-container .work-info > p {
+    margin: 0 0 10px 0;
+    color: #c3b7a8;
+    line-height: 1.5;
+}
+
+.work-detail-container .work-tags {
+    margin-bottom: 10px;
+}
+
+.work-detail-container .work-actions {
+    margin-top: 4px;
+}
+
+/* Comment Form in Detail Page */
+.work-detail-container .comment-form {
+    display: flex;
+    gap: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #2a2724;
+}
+
+.work-detail-container .comment-form input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #3e3a36;
+    border-radius: 6px;
+    background: #2a2724;
+    color: #e5e0d8;
+}
+
+.work-detail-container .comment-form button {
+    background: #c7b18b;
+    color: #1a1816;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Modal (The entire screen overlay) */
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1000; /* Sit on top of everything */
     left: 0;
     top: 0;
-    width: 100%; 
-    height: 100%;
-    overflow: auto; /* Enable scroll if content is too long */
-    background-color: rgba(0,0,0,0.6); /* Dark overlay */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+    padding-top: 50px; /* Space from the top */
 }
-
-/* Modal content box */
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; /* 10% from the top and centered */
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%; 
-    max-width: 600px; /* Maximum width for the modal */
+/* Modal Content/Box */
+.modal-content-offer {
+    background-color: #1a1816; /* Dark background */
+    color: #e5e0d8;
+    margin: 5% auto; /* 5% from the top and centered */
+    padding: 30px;
+    border: 1px solid #2a2724;
+    width: 80%; /* Could be more specific like max-width: 600px; */
+    max-width: 700px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     position: relative;
 }
 
-/* Close button style (for the 'x') */
+/* The Close Button */
 .close-btn {
     color: #aaa;
     float: right;
-    font-size: 32px;
+    font-size: 28px;
     font-weight: bold;
-    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 20px;
 }
 
 .close-btn:hover,
 .close-btn:focus {
-    color: #000;
+    color: #c7b18b;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Ensure the filter bar displays elements inline */
+.tag-filter-bar {
+    display: flex;
+    flex-wrap: wrap; /* Allows tags to wrap if screen is too narrow */
+    gap: 10px; /* Space between tags/buttons */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2a2724;
+}
+
+/* Ensure the form inside the bar also flows horizontally */
+#tag-filter-form {
+    display: flex;
+    gap: 10px;
+}
+/* Ensure the filter bar displays elements inline */
+.tag-filter-bar {
+    display: flex;
+    flex-wrap: wrap; /* Allows tags to wrap if screen is too narrow */
+    gap: 10px; /* Space between tags/buttons */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2a2724;
+}
+
+/* Ensure the form inside the bar also flows horizontally */
+#tag-filter-form {
+    display: flex;
+    gap: 10px;
+}
+/* Styling for when the checkbox is checked (i.e., the tag is active) */
+.tag-filter-label input[type="checkbox"]:checked + .tag-filter-btn {
+    background-color: #c7b18b; /* Active/Selected background color */
+    color: #12100e; /* Darker text for contrast */
+    border-color: #c7b18b;
+    font-weight: 600;
+}
+.tag-filter-bar .submit-btn {
+    background: #4a4540; /* A slightly different look for the action button */
+    color: #e5e0d8;
+    border: none;
+    cursor: pointer;
+}
+
+.tag-filter-bar .submit-btn:hover {
+    background: #5c5752;
+}
+/* Popup container (The entire screen overlay) */
+.popup {
+    display: none; /* Hidden by default, controlled by JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if content is too large */
+    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    padding-top: 50px; /* Offset from the top */
+}
+
+/* Popup container (The entire screen overlay) */
+.popup {
+    display: none; /* Hidden by default, controlled by JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if content is too large */
+    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    padding-top: 50px; /* Offset from the top */
+}
+
+
+/* The Close Button */
+#closeBtn {
+    color: #aaa;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#closeBtn:hover,
+#closeBtn:focus {
+    color: #c7b18b; /* Highlight color on hover */
     text-decoration: none;
 }
 
-/* Ensure form elements stretch */
-.modal-content input,
-.modal-content textarea {
+/* Styling for the form inputs */
+.popup-content form input[type="file"],
+.popup-content form input[type="text"],
+.popup-content form input[type="file"] + label {
     width: 100%;
-    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #3f3b37;
+    background: #2a2724;
+    color: #e5e0d8;
+    box-sizing: border-box; /* Include padding/border in element's total width/height */
 }
 
-.modal-content .form-group {
-    margin-bottom: 15px;
+/* Specific style for the file input button, if needed */
+.popup-content form input[type="file"] {
+    background: none; /* File inputs can be tricky to style, often better to wrap and style a label */
+    border: none;
+    padding: 0;
+}
+
+/* Ensure form layout for tags is horizontal */
+.popup-content form label {
+    color: #c3b7a8;
+    margin-top: 10px;
+    display: block; /* Make the main 'tags' label take a full line */
+}
+
+/* Container for tag checkboxes */
+.popup-content form label:nth-of-type(2) { 
+    margin-top: 0; /* Clear margin on the first tag checkbox label */
+}
+
+/* Style for individual tag checkbox items to display inline */
+.popup-content form div {
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 5px;
+}
+
+/* Apply existing upload-btn style to the form submit button */
+.popup-content form .upload-btn {
+    margin-top: 15px;
+    width: 100%;
+}
+/* Ensure tags flow horizontally in the Upload Modal */
+.popup-content .tags-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Slightly smaller gap than the main catalog bar */
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+
+
+
+/* Update Popup Overlay */
+.popup {
+    display: none; /* Hidden by default, controlled by JavaScript */
+    position: fixed; 
+    z-index: 1000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
+    padding-top: 50px; 
+}
+
+/* Popup Content Box - Bigger and Darker */
+.popup-content {
+    background-color: #1a1816; /* Dark background color (was white) */
+    color: #e5e0d8;
+    margin: 5% auto; /* Center the box */
+    padding: 30px; /* Consistent padding */
+    border: 1px solid #2a2724;
+    width: 90%; 
+    max-width: 600px; /* Increased max size (was 300px) */
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Spacing between form elements */
+}
+
+/* Close button - positioned for the new modal size */
+#closeBtn {
+    color: #aaa;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+#closeBtn:hover,
+#closeBtn:focus {
+    color: #c7b18b; 
+    text-decoration: none;
+}
+
+
+/* Ensure tags flow horizontally in the Upload Modal */
+/* Container for tags in the Upload Modal (from header.ejs) */
+.popup-content .tags-checkbox-group {
+    display: flex; /* Forces elements to line up horizontally */
+    flex-wrap: wrap; 
+    gap: 8px; /* Space between tags */
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* 🛑 HIDE THE DEFAULT FILE INPUT 🛑 */
+.popup-content form input[type="file"] {
+    /* Hide the actual file input field */
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+/* Style the LABEL to look like a button */
+.popup-content form label[for="image-upload"] {
+    display: block; /* Make it take the full width */
+    background: #4a4540; /* Darker background than primary button */
+    border: 1px solid #4a4540;
+    color: #e5e0d8;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.popup-content form label[for="image-upload"]:hover {
+    background: #5c5752;
+}
+
+/* --- Core Tag Styles (Used by Catalog and Upload Modal) --- */
+
+/* The label acts as the clickable area */
+.tag-filter-label {
+    cursor: pointer;
+    user-select: none;
+    display: flex; /* Ensures content is centered/aligned */
+    align-items: center; 
+}
+
+/* 🛑 HIDE THE ACTUAL CHECKBOX 🛑 */
+.tag-filter-label input[type="checkbox"] {
+    display: none;
+}
+
+/* Style for the visible button element (the span) */
+.tag-filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    background-color: #2a2724; /* Default inactive background */
+    color: #c3b7a8; /* Default text color */
+    border: 1px solid #2a2724;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Prevents tags from wrapping mid-word */
+}
+
+/* Active/Checked State */
+.tag-filter-label input[type="checkbox"]:checked + .tag-filter-btn {
+    background-color: #c7b18b; /* Active/Selected background color (Primary Accent) */
+    color: #12100e; /* Dark text for contrast */
+    border-color: #c7b18b;
+    font-weight: 600;
 }

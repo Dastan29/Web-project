@@ -41,19 +41,36 @@
   <div class="popup-content">
     <span id="closeBtn">&times;</span>
     <form action="/upload" method="POST" enctype="multipart/form-data">
-      <input type="file" name="image" accept="image/*" required />
+      <input type="file" name="image" id="image-upload" accept="image/*" required />
+<label for="image-upload">Choose Image File</label>
       <input type="text" name="title" placeholder="Title" required />
       <input type="text" name="description" placeholder="Description" required />
-      <label>tags</label>
+<label>Tags:</label>
 
 <% if (typeof tags !== 'undefined' && tags.length > 0) { %>
+    <div class="tags-checkbox-group">  
     <% tags.forEach(tag => { %>
-        <% if (tag && typeof tag === 'string') { %>  <div>
-                <input type="checkbox" id="tag-<%= tag %>" name="tags" value="<%= tag %>" style="margin-right: 5px;">
-                <label for="tag-<%= tag %>" style="color: #e5e0d8;"><%= tag.charAt(0).toUpperCase() + tag.slice(1) %></label>
-            </div>
-        <% } %>                                      <% }) %> 
+        <% if (tag && typeof tag === 'string') { %>  
+            <label 
+                class="tag-filter-label"
+                for="tag-<%= tag %>"
+            >
+                <input 
+                    type="checkbox" 
+                    id="tag-<%= tag %>" 
+                    name="tags" 
+                    value="<%= tag %>"
+                >
+                <span class="tag-filter-btn">
+                    <%= tag.charAt(0).toUpperCase() + tag.slice(1) %>
+                </span>
+            </label>
+        <% } %>                                      
+    <% }) %> 
+    </div>
 <% } %>
+
+
   
       <button type="submit" class="upload-btn">Submit</button>
     </form>

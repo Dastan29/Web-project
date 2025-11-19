@@ -28,7 +28,7 @@
 
         <div class="comments-display">
             <h4>Comments</h4>
-            <div id="comments-list-<%= work.id %>">
+            <div id="comments-list-<%= work.id %>" class="comments-list-container">
              
     [cite_start]<% comments.forEach(comment => { %> [cite: 3]
                     <p><strong><%= comment.username %>:</strong> <%= comment.content %></p>
