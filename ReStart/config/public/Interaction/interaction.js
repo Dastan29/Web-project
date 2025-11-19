@@ -1,63 +1,45 @@
-// interaction.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Interaction script loaded. Modal and AJAX listeners active.");
-
-    // --- Select the modal elements ---
     const modal = document.getElementById('work-detail-modal');
     const modalContent = document.getElementById('modal-content');
 
+    document.body.addEventListener('click', async (event) => {
+        const trigger = event.target.closest('.work-modal-trigger') || event.target.closest('.comment-modal-button');
 
-// -------------------------------------
-// 1. MODAL OPEN/FETCH LOGIC (Includes status check for robust fetching)
-// -------------------------------------
-document.body.addEventListener('click', async (event) => {
-    // Check if the click was on the image link OR the new button
-    const trigger = event.target.closest('.work-modal-trigger') || event.target.closest('.comment-modal-button');
-
-    if (trigger) {
-        event.preventDefault(); 
-        
-        const workId = trigger.dataset.workId;
-        const url = `/api/work-details/${workId}`;
-        
-        try {
-            const response = await fetch(url);
+        if (trigger) {
+            event.preventDefault(); 
             
-            // Check for non-OK status (e.g., 401, 404, 500)
-            if (!response.ok) {
-                 const errorBody = await response.text();
-                 console.error('Server Error Status:', response.status);
-                 console.error('Server Error Response (HTML Snippet):', errorBody.substring(0, 200) + '...');
-                 alert(`Could not load work details. Server returned status ${response.status}. You might need to log in.`);
-                 return;
-            }
+            const workId = trigger.dataset.workId;
+            const url = `/api/work-details/${workId}`;
+            
+            try {
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                     const errorBody = await response.text();
+                     console.error('Server Error Status:', response.status);
+                     console.error('Server Error Response (HTML Snippet):', errorBody.substring(0, 200) + '...');
+                     alert(`Could not load work details. Server returned status ${response.status}. You might need to log in.`);
+                     return;
+                }
 
-            const data = await response.json();
+                const data = await response.json();
 
-            if (data.success) {
-                renderModal(data.work, data.comments);
-                modal.style.display = 'flex'; // Show modal
+                if (data.success) {
+                    renderModal(data.work, data.comments);
+                    modal.style.display = 'flex';
+                }
+            } catch (error) {
+                console.error('Modal Fetch Error:', error);
             }
-        } catch (error) {
-            console.error('Modal Fetch Error:', error);
         }
-    }
-});
-    
-    // -------------------------------------
-    // 2. MODAL CLOSE LOGIC
-    // -------------------------------------
+    });
+
     document.body.addEventListener('click', (event) => {
-        // Close if the background is clicked OR the close button is clicked
         if (event.target === modal || event.target.classList.contains('close-button')) {
             modal.style.display = 'none';
         }
     });
 
-    // -------------------------------------
-    // 3. AJAX LIKE TOGGLE (Handles both main page and modal buttons)
-    // -------------------------------------
     document.body.addEventListener('click', async (event) => {
         const targetButton = event.target.closest('.like-button');
         if (!targetButton) return;
@@ -75,7 +57,6 @@ document.body.addEventListener('click', async (event) => {
             const data = await response.json();
 
             if (data.success) {
-                // Toggle the class on ALL like buttons for this work ID
                 document.querySelectorAll(`[data-work-id="${workId}"].like-button`).forEach(btn => {
                     if (data.action === 'liked') {
                         btn.classList.add('liked'); 
@@ -89,11 +70,7 @@ document.body.addEventListener('click', async (event) => {
         }
     });
 
-    // -------------------------------------
-    // 4. AJAX COMMENT SUBMISSION (from modal form)
-    // -------------------------------------
     document.body.addEventListener('submit', async (event) => {
-        // Target the specific modal form using the combined selector
         const form = event.target.closest('.comment-form.modal-comment-form'); 
 
         if (form) {
@@ -125,8 +102,7 @@ document.body.addEventListener('click', async (event) => {
                     if(commentsList) {
                         commentsList.appendChild(newCommentElement);
                     }
-                    contentInput.value = ''; // Clear the input field
-
+                    contentInput.value = '';
                 } 
             } catch (error) {
                 console.error('Comment AJAX Error:', error);
@@ -134,27 +110,17 @@ document.body.addEventListener('click', async (event) => {
         }
     });
 
-
-    
-    
-    // -------------------------------------
-    // 5. RENDER MODAL CONTENT (FIXED: tagsHtml is now defined)
-    // -------------------------------------
     function renderModal(work, comments) {
-        // 1. Generate HTML for comments
         let commentsHtml = comments.map(c => 
             `<p><strong>${c.username}:</strong> ${c.content}</p>`
         ).join('');
         
-        // 2. Generate HTML for tags - **THIS FIXES THE REFERENCE ERROR**
         const tagsHtml = work.tags && work.tags.length > 0
             ? work.tags.map(tag => 
-                // Ensure tag name is capitalized 
                 `<span class="tag-label">${tag.charAt(0).toUpperCase() + tag.slice(1)}</span>`
               ).join('')
             : '';
 
-        // 3. Populate the modal content with all variables
         modalContent.innerHTML = `
             <div class="modal-left">
                 <img src="${work.image_path}" alt="Work by ${work.username}">
@@ -194,24 +160,21 @@ document.body.addEventListener('click', async (event) => {
 
 });
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Select all delete buttons
     const deleteButtons = document.querySelectorAll('.delete-work-button');
 
     deleteButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
             const workId = event.target.getAttribute('data-work-id');
-            const deleteUrl = `/delete/work/${workId}`; // Matches your server.js route
+            const deleteUrl = `/delete/work/${workId}`;
 
             if (!confirm("Are you sure you want to delete this work? This cannot be undone.")) {
-                return; // User cancelled the deletion
+                return;
             }
 
             try {
-                // Send a DELETE request using the fetch API
                 const response = await fetch(deleteUrl, {
-                    method: 'DELETE', // Crucial: must be 'DELETE'
+                    method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -220,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
 
                 if (data.success) {
-                    // Success: Remove the work item from the DOM
                     const workItem = event.target.closest('.work-item');
                     if (workItem) {
                         workItem.remove();

@@ -157,7 +157,7 @@ body {
 }
 
 .footer {
-position: absolute;
+  position: absolute;
   background: #1a1816;
   display: flex;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -182,8 +182,6 @@ position: absolute;
   color: #c7b18b;
   font-size: 1.2rem;
 }
-
-
 
 .popup {
   display: none;
@@ -212,44 +210,41 @@ position: absolute;
   cursor: pointer;
 }
 
-
 .liked {
-    background-color: #524426; /* A standard red color */
+    background-color: #524426;
     color: rgb(0, 0, 0);
     border-color: none;
 }
-/* Full-screen overlay */
+
 #work-detail-modal {
     position: fixed;
-    z-index: 1000; /* Must be higher than everything else */
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.9); /* Dark background */
-    display: flex; /* Initially hidden */
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
-/* Modal Content Container (The actual window) */
 #modal-content {
-    background: #1a1816; /* Match navbar/card background */
+    background: #1a1816;
     border-radius: 12px;
     width: 90%;
-    max-width: 1100px; /* Limit size on large screens */
+    max-width: 1100px;
     max-height: 90vh;
-    display: flex; /* Enables the two-column layout */
-    overflow: hidden; /* Contains the image and ensures rounded corners */
+    display: flex;
+    overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     color: #e5e0d8;
 }
 
-/* Left side (Image) */
 .modal-left {
-    flex: 2; /* Takes up 2 parts of the space */
+    flex: 2;
     min-width: 40%;
     max-height: 90vh;
     overflow: hidden;
@@ -257,17 +252,16 @@ position: absolute;
 .modal-left img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensures the entire image is visible */
+    object-fit: contain;
 }
 
-/* Right side (Comments, Header, Footer) */
 .modal-right {
-    flex: 1; /* Takes up 1 part of the space */
+    flex: 1;
     padding: 25px 30px;
     display: flex;
     flex-direction: column;
     max-height: 90vh;
-    overflow-y: auto; /* Scrollable if content is too long */
+    overflow-y: auto;
 }
 
 .modal-header {
@@ -280,17 +274,16 @@ position: absolute;
 .modal-right h3 {
     font-size: 1.5rem;
     margin: 0;
-    color: #c7b18b; /* Use accent color for title */
+    color: #c7b18b;
 }
 
 .modal-description {
     font-size: 0.95rem;
-    color: #c3b7a8; /* Secondary text color */
+    color: #c3b7a8;
     margin-bottom: 15px;
     line-height: 1.5;
 }
 
-/* Tags in Modal */
 .work-tags {
     display: flex;
     flex-wrap: wrap;
@@ -298,20 +291,19 @@ position: absolute;
     margin-bottom: 20px;
 }
 .work-tags .tag-label {
-    background: #2a2724; /* Darker background for tag pill */
-    color: #c7b18b; /* Accent color text */
+    background: #2a2724;
+    color: #c7b18b;
     padding: 4px 10px;
     border-radius: 4px;
     font-size: 0.8rem;
     font-weight: 500;
 }
 
-/* Comments List in Modal */
 .modal-comments-list {
-    flex-grow: 1; /* Takes up all available vertical space */
+    flex-grow: 1;
     margin-top: 15px;
     padding-right: 10px;
-    overflow-y: auto; /* Scrollable comments */
+    overflow-y: auto;
 }
 
 .modal-comments-list p {
@@ -330,7 +322,6 @@ position: absolute;
     margin-right: 5px;
 }
 
-/* Comment Form in Modal */
 .modal-footer {
     padding-top: 15px;
     margin-top: 15px;
@@ -380,8 +371,6 @@ position: absolute;
     color: #c7b18b;
 }
 
-/* --- WorkDisplay Component Styles (used on index.ejs, catalog.ejs, profile.ejs) --- */
-
 .work-item {
     background: #1a1816;
     border-radius: 12px;
@@ -430,20 +419,17 @@ position: absolute;
 }
 
 .work-info h5 {
-    /* KEY FIX: Remove all default margins from the h5 block element */
-    margin: 0; 
-    padding: 0; 
-    margin-bottom: 10px; /* Add a small margin back for spacing below the link */
+    margin: 0;
+    padding: 0;
+    margin-bottom: 10px;
 }
 
-/* Author Link (a) Styles */
 .work-info h5 a {
-    font-size: 0.95rem; 
+    font-size: 0.95rem;
     font-weight: 500;
-    color: #c7b18b; 
+    color: #c7b18b;
     text-decoration: none;
-    /* KEY FIX: Set to inline to only occupy the width of the text, eliminating the wide square background */
-    display: inline; 
+    display: inline;
 }
 
 .work-info h5 a:hover {
@@ -513,8 +499,6 @@ position: absolute;
     color: #f0f0f0;
 }
 
-
-/* --- Styles for Catalog Page (catalog.ejs) --- */
 .catalog-page {
     padding: 40px 80px;
     max-width: 1200px;
@@ -609,7 +593,6 @@ position: absolute;
     color: #c3b7a8;
 }
 
-/* --- Styles for Login/Register Pages (login.ejs, register.ejs) --- */
 .card {
     background: #1a1816;
     padding: 30px 40px;
@@ -667,7 +650,6 @@ position: absolute;
     font-weight: 500;
 }
 
-/* --- Styles for Profile Page (profile.ejs, profileNotOwner.ejs) --- */
 .profile-card {
     max-width: 900px;
     margin: 40px auto;
@@ -800,7 +782,6 @@ position: absolute;
     color: #c3b7a8;
 }
 
-/* --- Styles for Offers Page (offers.ejs) --- */
 .offers-page {
     padding: 40px 80px;
     max-width: 1200px;
@@ -940,7 +921,6 @@ position: absolute;
     font-weight: 500;
 }
 
-/* Offer Modal */
 #offerModal .modal-content {
     background: #1a1816;
     max-width: 600px;
@@ -1010,8 +990,6 @@ position: absolute;
     background-color: #d8c39e;
 }
 
-
-/* --- Full Work Detail Page (If not using a modal) --- */
 .work-detail-page {
     padding: 40px 80px;
     max-width: 1200px;
@@ -1044,378 +1022,5 @@ position: absolute;
     background: #1a1816;
     border-radius: 12px;
     padding: 22px 24px;
-    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-/* Header and Description in Detail Page */
-.work-detail-container .work-info h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    margin: 0 0 6px 0;
-    color: #e5e0d8;
-}
-
-.work-detail-container .work-info > p {
-    margin: 0 0 10px 0;
-    color: #c3b7a8;
-    line-height: 1.5;
-}
-
-.work-detail-container .work-tags {
-    margin-bottom: 10px;
-}
-
-.work-detail-container .work-actions {
-    margin-top: 4px;
-}
-
-/* Comment Form in Detail Page */
-.work-detail-container .comment-form {
-    display: flex;
-    gap: 10px;
-    padding-top: 15px;
-    border-top: 1px solid #2a2724;
-}
-
-.work-detail-container .comment-form input[type="text"] {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #3e3a36;
-    border-radius: 6px;
-    background: #2a2724;
-    color: #e5e0d8;
-}
-
-.work-detail-container .comment-form button {
-    background: #c7b18b;
-    color: #1a1816;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-/* Modal (The entire screen overlay) */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top of everything */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
-    padding-top: 50px; /* Space from the top */
-}
-/* Modal Content/Box */
-.modal-content-offer {
-    background-color: #1a1816; /* Dark background */
-    color: #e5e0d8;
-    margin: 5% auto; /* 5% from the top and centered */
-    padding: 30px;
-    border: 1px solid #2a2724;
-    width: 80%; /* Could be more specific like max-width: 600px; */
-    max-width: 700px; 
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    position: relative;
-}
-
-/* The Close Button */
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: #c7b18b;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Ensure the filter bar displays elements inline */
-.tag-filter-bar {
-    display: flex;
-    flex-wrap: wrap; /* Allows tags to wrap if screen is too narrow */
-    gap: 10px; /* Space between tags/buttons */
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #2a2724;
-}
-
-/* Ensure the form inside the bar also flows horizontally */
-#tag-filter-form {
-    display: flex;
-    gap: 10px;
-}
-/* Ensure the filter bar displays elements inline */
-.tag-filter-bar {
-    display: flex;
-    flex-wrap: wrap; /* Allows tags to wrap if screen is too narrow */
-    gap: 10px; /* Space between tags/buttons */
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #2a2724;
-}
-
-/* Ensure the form inside the bar also flows horizontally */
-#tag-filter-form {
-    display: flex;
-    gap: 10px;
-}
-/* Styling for when the checkbox is checked (i.e., the tag is active) */
-.tag-filter-label input[type="checkbox"]:checked + .tag-filter-btn {
-    background-color: #c7b18b; /* Active/Selected background color */
-    color: #12100e; /* Darker text for contrast */
-    border-color: #c7b18b;
-    font-weight: 600;
-}
-.tag-filter-bar .submit-btn {
-    background: #4a4540; /* A slightly different look for the action button */
-    color: #e5e0d8;
-    border: none;
-    cursor: pointer;
-}
-
-.tag-filter-bar .submit-btn:hover {
-    background: #5c5752;
-}
-/* Popup container (The entire screen overlay) */
-.popup {
-    display: none; /* Hidden by default, controlled by JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if content is too large */
-    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
-    padding-top: 50px; /* Offset from the top */
-}
-
-/* Popup container (The entire screen overlay) */
-.popup {
-    display: none; /* Hidden by default, controlled by JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if content is too large */
-    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
-    padding-top: 50px; /* Offset from the top */
-}
-
-
-/* The Close Button */
-#closeBtn {
-    color: #aaa;
-    float: right;
-    font-size: 32px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-    line-height: 1;
-}
-
-#closeBtn:hover,
-#closeBtn:focus {
-    color: #c7b18b; /* Highlight color on hover */
-    text-decoration: none;
-}
-
-/* Styling for the form inputs */
-.popup-content form input[type="file"],
-.popup-content form input[type="text"],
-.popup-content form input[type="file"] + label {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #3f3b37;
-    background: #2a2724;
-    color: #e5e0d8;
-    box-sizing: border-box; /* Include padding/border in element's total width/height */
-}
-
-/* Specific style for the file input button, if needed */
-.popup-content form input[type="file"] {
-    background: none; /* File inputs can be tricky to style, often better to wrap and style a label */
-    border: none;
-    padding: 0;
-}
-
-/* Ensure form layout for tags is horizontal */
-.popup-content form label {
-    color: #c3b7a8;
-    margin-top: 10px;
-    display: block; /* Make the main 'tags' label take a full line */
-}
-
-/* Container for tag checkboxes */
-.popup-content form label:nth-of-type(2) { 
-    margin-top: 0; /* Clear margin on the first tag checkbox label */
-}
-
-/* Style for individual tag checkbox items to display inline */
-.popup-content form div {
-    display: inline-block;
-    margin-right: 15px;
-    margin-bottom: 5px;
-}
-
-/* Apply existing upload-btn style to the form submit button */
-.popup-content form .upload-btn {
-    margin-top: 15px;
-    width: 100%;
-}
-/* Ensure tags flow horizontally in the Upload Modal */
-.popup-content .tags-checkbox-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px; /* Slightly smaller gap than the main catalog bar */
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-
-
-
-
-/* Update Popup Overlay */
-.popup {
-    display: none; /* Hidden by default, controlled by JavaScript */
-    position: fixed; 
-    z-index: 1000; /* Sit on top of everything */
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.8); /* Dark semi-transparent background */
-    padding-top: 50px; 
-}
-
-/* Popup Content Box - Bigger and Darker */
-.popup-content {
-    background-color: #1a1816; /* Dark background color (was white) */
-    color: #e5e0d8;
-    margin: 5% auto; /* Center the box */
-    padding: 30px; /* Consistent padding */
-    border: 1px solid #2a2724;
-    width: 90%; 
-    max-width: 600px; /* Increased max size (was 300px) */
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* Spacing between form elements */
-}
-
-/* Close button - positioned for the new modal size */
-#closeBtn {
-    color: #aaa;
-    float: right;
-    font-size: 32px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-    line-height: 1;
-}
-
-#closeBtn:hover,
-#closeBtn:focus {
-    color: #c7b18b; 
-    text-decoration: none;
-}
-
-
-/* Ensure tags flow horizontally in the Upload Modal */
-/* Container for tags in the Upload Modal (from header.ejs) */
-.popup-content .tags-checkbox-group {
-    display: flex; /* Forces elements to line up horizontally */
-    flex-wrap: wrap; 
-    gap: 8px; /* Space between tags */
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-/* 🛑 HIDE THE DEFAULT FILE INPUT 🛑 */
-.popup-content form input[type="file"] {
-    /* Hide the actual file input field */
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
-}
-
-/* Style the LABEL to look like a button */
-.popup-content form label[for="image-upload"] {
-    display: block; /* Make it take the full width */
-    background: #4a4540; /* Darker background than primary button */
-    border: 1px solid #4a4540;
-    color: #e5e0d8;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    text-align: center;
-    font-weight: 600;
-    transition: background 0.2s ease;
-}
-
-.popup-content form label[for="image-upload"]:hover {
-    background: #5c5752;
-}
-
-/* --- Core Tag Styles (Used by Catalog and Upload Modal) --- */
-
-/* The label acts as the clickable area */
-.tag-filter-label {
-    cursor: pointer;
-    user-select: none;
-    display: flex; /* Ensures content is centered/aligned */
-    align-items: center; 
-}
-
-/* 🛑 HIDE THE ACTUAL CHECKBOX 🛑 */
-.tag-filter-label input[type="checkbox"] {
-    display: none;
-}
-
-/* Style for the visible button element (the span) */
-.tag-filter-btn {
-    padding: 6px 14px;
-    border-radius: 20px;
-    background-color: #2a2724; /* Default inactive background */
-    color: #c3b7a8; /* Default text color */
-    border: 1px solid #2a2724;
-    transition: all 0.2s ease;
-    white-space: nowrap; /* Prevents tags from wrapping mid-word */
-}
-
-/* Active/Checked State */
-.tag-filter-label input[type="checkbox"]:checked + .tag-filter-btn {
-    background-color: #c7b18b; /* Active/Selected background color (Primary Accent) */
-    color: #12100e; /* Dark text for contrast */
-    border-color: #c7b18b;
-    font-weight: 600;
+    box-shadow: 0 6px 22px rgba(0, 0, 0, 0.3);
 }
