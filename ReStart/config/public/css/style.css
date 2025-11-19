@@ -159,6 +159,7 @@ body {
 .footer {
   position: absolute;
   background: #1a1816;
+  width: 100%;
   display: flex;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 30px;
